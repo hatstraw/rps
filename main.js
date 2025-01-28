@@ -5,66 +5,76 @@ let game = [
     'Scissors',
     'Paper'
 ];
-let humanScore = 0, computerScore = 0;
 
-const title = document.querySelector1("h4");
-const computer = document.createElement("p");
-const human = document.createElement("p");
+window.onload = playGame;
 
+function playGame(){
+    let humanScore = 0, computerScore = 0;
 
-for (let i = 1; i <= 5; i++) {
-    title.textContent = `Round ${i}`
-    document.body.appendChild(title);
+    for (let i = 1; i <= 5; i++) {
 
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
+        console.log(`Round ${i}`)
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+    
+        playRound(humanSelection, computerSelection);
 
-    computer.textContent = `Computer choose ${computerSelection}`;
-    human.textContent = `You choose ${humanSelection}`;
-
-    // computer.textContent = choice;
-    document.body.appendChild(computer);
-    document.body.appendChild(human);
-
-    playRound(humanSelection, computerSelection);
-}
-
-function playRound(humanChoice, computerChoice) {
-    let output = "You ";
-
-    switch (humanChoice) {
-        case 'Rock':
-            if (computerChoice == 'Scissors') {
-                output += `won - ${game[0]} beats ${game[1]}`;
-            } else if (computerChoice == 'Paper') {
-                output += `lose - ${game[2]} beats ${game[0]}`;
-            } else {
-                output += `tied !!! Both choose ${computerChoice}`;
-            }
-            break;
-        case 'Scissors':
-            if (computerChoice == 'Paper') {
-                output += `won - ${game[1]} beats ${game[2]}`;
-            } else if (computerChoice == 'Rock') {
-                output += `lose - ${game[0]} beats ${game[1]}`;
-            } else {
-                output += `tied !!! Both choose ${computerChoice}`;
-            }
-            break;
-        case 'Paper':
-            if (computerChoice == 'Rock') {
-                output += `won - ${game[2]} beats ${game[0]}`;
-            } else if (computerChoice == 'Scissors') {
-                output += `lose - ${game[1]} beats ${game[2]}`;
-            } else {
-                output += `tied !!! Both choose ${computerChoice}`;
-            }
-            break;
-        default:
-            output += `Hmmm`;
+        console.log(`Current Score is : You --> ${humanScore} || ${computerScore} <-- Computer.`)
     }
-    console.log(output); 
+
+    if (humanScore > computerScore) {
+        console.log(`Congrats !!! You won with ${humanScore} - ${computerScore} `);
+    }else if (humanScore < computerScore){
+        console.log(`Ohh No !!! You lost. You got ${humanScore} - ${computerScore}`);
+    }else {
+        console.log(`You tied. Try again both got ${humanScore} - ${computerScore}`);
+    }
+
+    function playRound(humanChoice, computerChoice) {
+        let output = "You ";
+    
+        switch (humanChoice) {
+            case 'Rock':
+                if (computerChoice == 'Scissors') {
+                    output += `won - ${game[0]} beats ${game[1]}`;
+                    humanScore++;
+                } else if (computerChoice == 'Paper') {
+                    output += `lose - ${game[2]} beats ${game[0]}`;
+                    computerScore++;
+                } else {
+                    output += `tied !!! Both choose ${computerChoice}`;
+                }
+                break;
+            case 'Scissors':
+                if (computerChoice == 'Paper') {
+                    output += `won - ${game[1]} beats ${game[2]}`;
+                    humanScore++;
+                } else if (computerChoice == 'Rock') {
+                    output += `lose - ${game[0]} beats ${game[1]}`;
+                    computerScore++;
+                } else {
+                    output += `tied !!! Both choose ${computerChoice}`;
+                }
+                break;
+            case 'Paper':
+                if (computerChoice == 'Rock') {
+                    output += `won - ${game[2]} beats ${game[0]}`;
+                    humanScore++;
+                } else if (computerChoice == 'Scissors') {
+                    output += `lose - ${game[1]} beats ${game[2]}`;
+                    computerScore++;
+                } else {
+                    output += `tied !!! Both choose ${computerChoice}`;
+                }
+                break;
+            default:
+                output += `Hmmm`;
+        }
+        console.log(output); 
+    }
 }
+
+
 
 function getComputerChoice() {
     // 0 - Rock, 1 - Scissors, 2 - Paper
